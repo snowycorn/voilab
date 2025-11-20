@@ -104,6 +104,7 @@ class SLAMMappingService(BaseService):
 
         process.wait()
         if process.returncode != 0:
+            logger.error(process.stderr.read())
             raise RuntimeError(f"SLAM mapping failed. Check logs at {stdout_path} for details.")
 
         return {

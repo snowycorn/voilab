@@ -106,12 +106,13 @@ class TestSLAMMappingService:
         with tempfile.TemporaryDirectory() as tmpdir:
             tmpdir = Path(tmpdir)
 
-            # Create input structure
+            # Create input structure expected by SLAMMappingService
             input_dir = tmpdir / "input"
             input_dir.mkdir()
-            demo_dir = input_dir / "demo1"
-            demo_dir.mkdir()
-            (demo_dir / "demo1.MP4").touch()
+            mapping_dir = input_dir / "demos" / "mapping"
+            mapping_dir.mkdir(parents=True)
+            (mapping_dir / "raw_video.mp4").touch()
+            (mapping_dir / "imu_data.json").write_text("{}")
 
             output_dir = tmpdir / "output"
 
@@ -174,6 +175,8 @@ class TestBatchSLAMService:
             valid_dir.mkdir()
             demo_dir = valid_dir / "demo1"
             demo_dir.mkdir()
+            (demo_dir / "optimized_trajectory.txt").touch()
+            (demo_dir / "keyframes.json").write_text("{}")
 
             service = BatchSLAMService({})
             assert service.validate_batch_results(str(valid_dir)) is True
@@ -338,7 +341,7 @@ class TestReplayBufferService:
             # Create mock video
             demo_dir = input_dir / "demo1"
             demo_dir.mkdir()
-            (demo_dir / "demo1.MP4").write_text(b"mock video data")
+            (demo_dir / "demo1.MP4").write_bytes(b"mock video data")
 
             output_dir = tmpdir / "output"
 
