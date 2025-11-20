@@ -217,3 +217,7 @@ outputs/*
 *.pkl
 *.mp4
 *.JPG
+
+# output
+test_ours/
+test_TAs/
