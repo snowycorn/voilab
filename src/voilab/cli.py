@@ -60,7 +60,7 @@ def launch_simulator(task, session_dir, episode, width, height):
         build_cmd = ["docker", "compose", "build", "isaac-sim"]
         subprocess.run(build_cmd, env=env_vars, check=True)
 
-        container_command = f".venv/bin/python scripts/generate_data.py --task {task} --session_dir {session_dir} --episode {episode}"
+        container_command = f".venv/bin/python scripts/generate_data.py --task {task} --session_dir {session_dir}"
         
         # Run container with host network
         click.echo("[CLI] Starting Docker container with host network...")

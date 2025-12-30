@@ -75,6 +75,8 @@ COPY packages/diffusion_policy/README.md /workspace/voilab/packages/diffusion_po
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --python ${VIRTUAL_ENV}
 
+ENV UV_HTTP_TIMEOUT=1800
+ENV UV_HTTP_RETRIES=10
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install --python ${VIRTUAL_ENV} \
         "isaacsim[all,extscache]==5.1.0" \
